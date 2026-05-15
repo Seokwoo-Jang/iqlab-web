@@ -1,30 +1,50 @@
 import { SectionShell, Card, Tag } from './SectionShell';
 import { asset } from '../../lib/asset';
+import PhotoGallery, { type Photo } from './PhotoGallery';
 
-type Photo = {
-  label: string;
-  date?: string;
-  src?: string;
-  caption?: string;
-  tone?: string;
-  /** 강조 카드 (그리드 2칸 차지) */
-  feature?: boolean;
-};
+// ----------------------------------------------------------------------------
+// Community Photos 데이터
+//
+// 새 사진을 추가하려면 이 배열에 객체 하나만 추가하면 됩니다.
+//   - `kind: 'award'`  → 항상 2×2 feature 자리에 고정 (가장 최근 1개)
+//   - `kind: 'event'`  → 일반 카드, `date` 내림차순 정렬되어 페이지네이션
+//
+// 필드:
+//   label    제목 (필수)
+//   date     'YYYY.MM.DD' 또는 'YYYY.MM' — 정렬 기준 (선택, 없으면 가장 과거)
+//   src      '/community/파일명.jpg' (없으면 placeholder 카드)
+//   caption  카드 하단·라이트박스 상단 짧은 설명
+//   details  라이트박스에서만 보이는 더 자세한 내용 (선택)
+//   tone     placeholder 그라데이션 색 (src 없을 때만 사용)
+//
+// 자세한 가이드: MAINTENANCE.md §4-5
+// ----------------------------------------------------------------------------
 
 const GALLERY: Photo[] = [
   {
+    kind: 'award',
     label: "제26회 '대한민국 반도체 설계대전' 기업특별상 수상",
     date: '2025.10.23',
-    src: '/award-2025-semiconductor-design.png',
+    src: '/community/award-2025-semiconductor-design.png',
     caption:
       "서울 코엑스에서 열린 제26회 '대한민국 반도체 설계대전' 시상식에서 IQLAB이 엣지 AI용 뉴로모픽 프로세서로 기업특별상을 수상했습니다.",
-    feature: true,
+    details:
+      '주최: 산업통상자원부 · 과학기술정보통신부 / 주관: 한국반도체산업협회 (KSIA)\n' +
+      '수상 작품: Energy-Efficient Neuromorphic Processor with Unified Refractory-Control NoC.\n' +
+      '동일 작품으로 Electronics(MDPI) 게재 및 Samsung 28nm 풀커스텀 시제품 실증을 함께 진행했습니다.',
   },
-  { label: 'ISSCC 2024 발표', tone: 'from-cyan-900/40' },
-  { label: 'MPW 칩 도착', tone: 'from-red-900/40' },
-  { label: '여름 워크샵', tone: 'from-emerald-900/40' },
-  { label: '졸업식', tone: 'from-purple-900/40' },
-  { label: 'Lab 회식', tone: 'from-amber-900/40' },
+  {
+    kind: 'event',
+    label: 'Lab 합동 회식 — 압구정 화연산장',
+    date: '2025.02.26',
+    src: '/community/2025-02-26.jpg',
+    caption:
+      '한 학기 무사 종료 기념, IQLAB 전원 출동! 압구정 화연산장 앞에서 V자 사인과 함께 두툼한 소고기로 영혼 충전. 회로처럼 단단한 팀워크는 역시 미디엄 굽기에서 완성됩니다.',
+  },
+  { kind: 'event', label: 'MPW 칩 도착', tone: 'from-red-900/40' },
+  { kind: 'event', label: '여름 워크샵', tone: 'from-emerald-900/40' },
+  { kind: 'event', label: '졸업식', tone: 'from-purple-900/40' },
+  { kind: 'event', label: 'ICCE 2025 발표', tone: 'from-cyan-900/40' },
 ];
 
 const HIRING_AREAS = [
@@ -87,74 +107,7 @@ export default function CommunitySection() {
     <SectionShell id="community" eyebrow="Community">
       <div className="space-y-20">
         {/* ============ PHOTOS ============ */}
-        <div>
-          <ChapterHeader title="Photos" accent="#FBBF24" />
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-            {GALLERY.map((g) => (
-              <figure
-                key={g.label}
-                className={`relative rounded-lg overflow-hidden border border-white/10 hover:border-white/30 transition group ${
-                  g.feature
-                    ? 'col-span-2 md:col-span-2 md:row-span-2 aspect-[4/3] md:aspect-auto'
-                    : 'aspect-[4/3]'
-                }`}
-              >
-                {g.src ? (
-                  <>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={asset(g.src)}
-                      alt={g.label}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div
-                      className="absolute inset-0 pointer-events-none"
-                      style={{
-                        background:
-                          'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 35%, rgba(0,0,0,0.0) 70%)',
-                      }}
-                    />
-                    <figcaption className="absolute inset-x-0 bottom-0 p-4 z-10">
-                      <div className="flex items-baseline gap-2 mb-1">
-                        {g.feature && (
-                          <span
-                            className="text-[10px] font-mono px-1.5 py-0.5 rounded border"
-                            style={{
-                              color: '#FBBF24',
-                              borderColor: '#FBBF2455',
-                              background: '#FBBF2410',
-                            }}
-                          >
-                            ★ Award
-                          </span>
-                        )}
-                        {g.date && (
-                          <span className="text-[10px] font-mono text-gray-300">
-                            {g.date}
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-sm md:text-base font-bold text-white leading-snug">
-                        {g.label}
-                      </p>
-                      {g.caption && (
-                        <p className="text-[12px] text-gray-300 leading-snug mt-1 hidden md:block">
-                          {g.caption}
-                        </p>
-                      )}
-                    </figcaption>
-                  </>
-                ) : (
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-br ${g.tone ?? 'from-gray-900/40'} to-black flex items-end p-4`}
-                  >
-                    <span className="text-xs font-mono text-white/70">{g.label}</span>
-                  </div>
-                )}
-              </figure>
-            ))}
-          </div>
-        </div>
+        <PhotoGallery photos={GALLERY} />
 
         {/* ============ CONTACT ============ */}
         <div id="contact" className="scroll-mt-24">
@@ -168,7 +121,7 @@ export default function CommunitySection() {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={asset('/sejong-clocktower.png')}
+                src={asset('/brand/sejong-clocktower.png')}
                 alt="세종대학교 시계탑 (Sejong University)"
                 className="absolute inset-0 w-full h-full object-cover"
               />
