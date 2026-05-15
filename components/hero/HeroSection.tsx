@@ -115,7 +115,7 @@ export default function HeroSection() {
           Explore Research →
         </a>
         <a
-          href="#community"
+          href="#contact"
           className="px-7 py-2.5 rounded text-sm font-semibold border border-white/20 text-gray-200 hover:border-white/50 hover:text-white transition-all duration-200 backdrop-blur-sm bg-white/5"
         >
           Join Our Lab →

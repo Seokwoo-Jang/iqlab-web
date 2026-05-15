@@ -25,7 +25,6 @@ const GALLERY: Photo[] = [
   { label: '여름 워크샵', tone: 'from-emerald-900/40' },
   { label: '졸업식', tone: 'from-purple-900/40' },
   { label: 'Lab 회식', tone: 'from-amber-900/40' },
-  { label: '실험실 일상', tone: 'from-fuchsia-900/40' },
 ];
 
 const HIRING_AREAS = [
@@ -158,7 +157,7 @@ export default function CommunitySection() {
         </div>
 
         {/* ============ CONTACT ============ */}
-        <div>
+        <div id="contact" className="scroll-mt-24">
           <ChapterHeader title="Contact" accent={contactAccent} />
 
           {/* Campus photo + Google Map */}

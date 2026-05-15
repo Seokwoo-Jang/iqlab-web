@@ -73,7 +73,14 @@ export default function ChipMindMap() {
   useEffect(() => { setMounted(true); }, []);
 
   return (
-    <div className="relative w-full" style={{ aspectRatio: `${VB_W}/${VB_H}` }}>
+    <>
+      {/* Mobile (< md): stacked card layout — the SVG mind map overlaps badly
+          on narrow screens, so we swap to a simple vertical stack of the same
+          4 research cards (reusing CardArt + MindmapTags below). */}
+      <MobileResearchStack mounted={mounted} />
+
+      {/* Desktop (md+): full SVG chip mind map */}
+      <div className="hidden md:block relative w-full" style={{ aspectRatio: `${VB_W}/${VB_H}` }}>
       <svg
         className="absolute inset-0 w-full h-full"
         viewBox={`0 0 ${VB_W} ${VB_H}`}
@@ -286,6 +293,52 @@ export default function ChipMindMap() {
 
       {RESEARCH.map((r) => (
         <ResearchCard key={r.id} data={r} mounted={mounted} onHover={setHovered} />
+      ))}
+      </div>
+    </>
+  );
+}
+
+/* ───────────────────────────── Mobile fallback ─────────────────────────────
+ * Renders the same 4 research topics as a clean vertical stack on phones,
+ * where the absolute-positioned SVG mind map would overlap. Visible only on
+ * screens narrower than Tailwind's md breakpoint (768px).
+ * --------------------------------------------------------------------------*/
+function MobileResearchStack({ mounted }: { mounted: boolean }) {
+  return (
+    <div className="md:hidden flex flex-col gap-4 w-full max-w-md mx-auto px-2">
+      {RESEARCH.map((r, i) => (
+        <div
+          key={r.id}
+          className="relative rounded-2xl px-4 pt-4 pb-3"
+          style={{
+            background: 'rgba(5,10,18,0.6)',
+            backdropFilter: 'blur(10px) saturate(1.1)',
+            WebkitBackdropFilter: 'blur(10px) saturate(1.1)',
+            boxShadow: `inset 0 0 0 1px ${r.accent}30, 0 10px 30px rgba(0,0,0,0.5)`,
+            opacity: 0,
+            animation: mounted
+              ? `fadeIn 0.5s ease-out ${0.15 + i * 0.1}s forwards`
+              : 'none',
+          }}
+        >
+          {/* Topic illustration */}
+          <div className="mx-auto mb-3" style={{ width: '220px', height: '125px' }}>
+            <CardArt id={r.id} accent={r.accent} />
+          </div>
+
+          {/* Title */}
+          <h3
+            className="text-center text-[15px] font-bold text-white leading-snug mb-2"
+            style={{
+              textShadow: `0 0 14px ${r.accent}70, 0 1px 8px rgba(0,0,0,0.9)`,
+            }}
+          >
+            {r.title}
+          </h3>
+
+          <MindmapTags tags={r.tags} accent={r.accent} />
+        </div>
       ))}
     </div>
   );
