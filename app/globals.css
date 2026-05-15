@@ -1,0 +1,142 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #000000;
+  --text-primary: #F9FAFB;
+  --text-secondary: #6B7280;
+  --chip-border: #00D4FF;
+  --trace: #ffffff;
+  --dot: #DC2626;
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background: #000;
+  color: var(--text-primary);
+}
+
+/* PCB trace draw-on animation */
+@keyframes drawTrace {
+  from {
+    stroke-dashoffset: 620;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Red dot pop-in */
+@keyframes dotPop {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Card fade-in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Chip glow pulse */
+@keyframes chipGlow {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Headline fade up */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Cyan trace flow — "current flowing" along bg circuits */
+@keyframes traceFlow {
+  to {
+    stroke-dashoffset: -200;
+  }
+}
+
+/* Slow ambient pulse for chip glow ring */
+@keyframes ringPulse {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.08);
+  }
+}
+
+/* Mindmap connector dotted draw */
+@keyframes dashShift {
+  to {
+    stroke-dashoffset: -12;
+  }
+}
+
+/* Slow continuous rotation (clockwise) — used by the central die's outer reticle */
+@keyframes spinSlow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Slow continuous rotation (counter-clockwise) — inner reticle */
+@keyframes spinSlowR {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+/* Subtle scanline sweep across the silicon die */
+@keyframes scanSweep {
+  0% {
+    transform: translateY(-60px);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(60px);
+    opacity: 0;
+  }
+}
