@@ -1,6 +1,8 @@
 import { SectionShell, Card } from './SectionShell';
-import { ART_BY_NO, FIGURE_BY_NO } from './ResearchArt';
-import { asset } from '../../lib/asset';
+// FIGURE_BY_NO (캡션·출처 메타) 는 ResearchArt.tsx 에 보존되어 있습니다.
+// 화면 표시가 다시 필요해지면 여기서 함께 import 하세요.
+import { ART_BY_NO } from './ResearchArt';
+import ResearchFigureStrip, { type ResearchPhoto } from './ResearchFigureStrip';
 
 type Sub = { title: string; body: string };
 type Area = {
@@ -112,13 +114,48 @@ const SECTIONS: Area[] = [
   },
 ];
 
+// ----------------------------------------------------------------------------
+// 각 챕터별 원본 figure 사진 묶음.
+//
+// 사진 추가/교체:
+//   1) 이미지 파일을 `iqlab/public/research/` 아래에 배치.
+//   2) 아래 배열에 `{ src: '/research/<file>' }` 형태로 항목 추가.
+//   3) 한 줄에 최대 6장까지 자동 배치되며, 더 많거나 적어도 자동으로 컬럼 수 조정.
+//   4) 카드 클릭 시 라이트박스(확대 모달) 가 자동으로 동작합니다.
+//
+// 자세한 가이드는 MAINTENANCE.md 의 "Research figure 사진 추가" 절 참고.
+// ----------------------------------------------------------------------------
+const PHOTOS_BY_NO: Partial<Record<string, ResearchPhoto[]>> = {
+  '01': [
+    { src: '/research/transformer_1.png', label: 'Variable Systolic Array' },
+    { src: '/research/transformer_2.png', label: 'NPU Virtualization' },
+    { src: '/research/transformer_3.png', label: 'Scheduler Architecture' },
+    { src: '/research/transformer_4.png', label: 'Dataflow' },
+    { src: '/research/transformer_5.png', label: 'In-Memory MatMul' },
+    { src: '/research/transformer_6.png', label: 'Measured Results' },
+  ],
+  '02': [
+    { src: '/research/cal_1.gif', label: 'Sensor SoC Block' },
+    { src: '/research/cal_2.gif', label: 'Envelope / ToF Detector' },
+    { src: '/research/cal_3.gif', label: '2D Polynomial Calibration' },
+  ],
+  '03': [
+    { src: '/research/neuromorphic_1.png', label: 'UREN Router' },
+    { src: '/research/neuromorphic_2.png', label: 'Star-topology NoC' },
+    { src: '/research/neuromorphic_3.png', label: 'STDP On-chip Learning' },
+    { src: '/research/neuromorphic_4.png', label: 'Refractory Control' },
+    { src: '/research/neuromorphic_5.png', label: 'Samsung 28 nm Chip' },
+    { src: '/research/neuromorphic_6.png', label: 'Measured Results' },
+  ],
+};
+
 export default function ResearchSection() {
   return (
     <SectionShell id="research" eyebrow="Research">
       <div className="space-y-20">
         {SECTIONS.map((s) => {
           const Art = ART_BY_NO[s.no];
-          const figure = FIGURE_BY_NO[s.no];
+          const photos = PHOTOS_BY_NO[s.no];
           return (
             <div key={s.no} id={`research-${s.no}`} className="scroll-mt-24">
               {/* Main header */}
@@ -144,28 +181,25 @@ export default function ResearchSection() {
                 {s.summary}
               </p>
 
-              {/* Figure (caption만, 출처 인용 제거) */}
-              {(figure || Art) && (
-                <figure
-                  className="mb-6 rounded-lg overflow-hidden"
-                  style={{
-                    border: `1px solid ${s.accent}30`,
-                    background: 'rgba(2, 8, 18, 0.6)',
-                    boxShadow: `0 0 32px ${s.accent}10 inset`,
-                  }}
-                >
-                  {figure?.src ? (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img
-                      src={asset(figure.src)}
-                      alt={figure.caption}
-                      className="w-full h-auto block"
-                      style={{ maxHeight: '420px', objectFit: 'contain', background: '#000' }}
-                    />
-                  ) : Art ? (
-                    <Art />
-                  ) : null}
-                </figure>
+              {/* SVG 일러스트 + 그 아래 원본 figure 사진 strip */}
+              {(Art || (photos && photos.length > 0)) && (
+                <div className="mb-6">
+                  {Art && (
+                    <figure
+                      className="rounded-lg overflow-hidden"
+                      style={{
+                        border: `1px solid ${s.accent}30`,
+                        background: 'rgba(2, 8, 18, 0.6)',
+                        boxShadow: `0 0 32px ${s.accent}10 inset`,
+                      }}
+                    >
+                      <Art />
+                    </figure>
+                  )}
+                  {photos && photos.length > 0 && (
+                    <ResearchFigureStrip photos={photos} accent={s.accent} />
+                  )}
+                </div>
               )}
 
               {/* Subsections grid (키워드 태그 제거) */}

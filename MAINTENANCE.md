@@ -99,7 +99,7 @@ import { asset } from '../lib/asset';   // (경로는 파일 위치에 따라 ..
 | `public/members/dongsun.jpg` | `asset('/members/dongsun.jpg')` |
 | `public/members/seokwoo-chang.jpg` | `asset('/members/seokwoo-chang.jpg')` |
 | `public/chips/sf028-2401-neuromorphic.jpg` | `asset('/chips/sf028-2401-neuromorphic.jpg')` |
-| `public/research/merged_transformer.png` | `asset('/research/merged_transformer.png')` |
+| `public/research/transformer_1.png` | `asset('/research/transformer_1.png')` |
 | `public/community/award-2025-semiconductor-design.png` | `asset('/community/award-2025-semiconductor-design.png')` |
 | `public/hero/hero-template-remove.png` | `asset('/hero/hero-template-remove.png')` |
 | `public/brand/iqlab-logo-remove.png` | `asset('/brand/iqlab-logo-remove.png')` |
@@ -137,12 +137,11 @@ public/
 │   └── sf028-2402-smart-meter.jpg               3rd chip (스마트미터 SoC)
 │
 ├── research/                                    ← 연구 figure (Research)
-│   ├── merged_transformer.png                   Research 01 figure (Transformer/STAU)
-│   ├── merged_cal.png                           Research 02 figure (Polynomial Cal.)
-│   ├── merged_neuromorphic.png                  Research 03 figure (Neuromorphic SNN)
-│   ├── transformer_1..6.png                     Research 01 원본 소스
-│   ├── cal_1..3.gif                             Research 02 원본 소스
-│   └── neuromorphic_1..6.png                    Research 03 원본 소스
+│   ├── transformer_1..6.png                     Research 01 원본 figure (Edge AI / NPU)
+│   ├── cal_1..3.gif                             Research 02 원본 figure (Sensor SoC / Cal.)
+│   └── neuromorphic_1..6.png                    Research 03 원본 figure (Neuromorphic SNN)
+│   * 합본(merged_*.png) 은 사용하지 않습니다. 각 챕터는 SVG 일러스트 +
+│     원본 사진 strip(클릭 시 확대) 으로 표시됩니다.
 │
 └── *.svg                                        Next.js 기본 (사용 안 함)
 ```
@@ -186,19 +185,30 @@ public/
 - **교수 경력/수상 갱신**: `CAREER`, `EDUCATION`, `HONORS`, `SERVICE` 배열 수정.
 
 ### 4-2. 연구 (Research)
-**파일**: `components/sections/ResearchSection.tsx`, `ResearchArt.tsx`
+**파일**: `components/sections/ResearchSection.tsx`, `ResearchArt.tsx`, `ResearchFigureStrip.tsx`
 
-- **연구 분야 글 수정**: `ResearchSection.tsx` 의 `SECTIONS` 배열 안 `summary`, `subs` 등을 고침.
-- **연구 그림(figure) 교체**:
-  1. 이미지를 `public/research/내-figure.png` 에 업로드
-  2. `ResearchArt.tsx` 의 `FIGURE_BY_NO` 객체에 `src: '/research/내-figure.png'` 추가
-  ```ts
-  '01': {
-    src: '/research/edge-ai-block.png',
-    caption: '...',
-    source: '...',
-  },
-  ```
+각 챕터는 두 가지로 figure 가 표시됩니다.
+1. **SVG 일러스트** — `ResearchArt.tsx` 의 `ART_BY_NO` 에서 챕터 번호로 매핑된 컴포넌트.
+   섹션 가장 위에 큰 도식으로 표시됩니다 (편집/추가는 SVG 코드 직접 수정).
+2. **원본 사진 strip** — `ResearchSection.tsx` 의 `PHOTOS_BY_NO` 배열에 정의된 이미지들.
+   SVG 아래에 가로 일렬(최대 6칸)로 자동 배치되고, 카드 클릭 시 라이트박스로 확대됩니다.
+
+- **연구 분야 글 수정**: `ResearchSection.tsx` 의 `SECTIONS` 배열에서 `summary`, `subs`, `flow` 등을 고침.
+- **사진 추가/교체** (가장 자주 하는 작업):
+  1. 이미지를 `public/research/내-figure.png` 에 업로드 (확장자는 `.png/.jpg/.gif/.webp` 모두 가능)
+  2. `ResearchSection.tsx` 의 `PHOTOS_BY_NO` 안 해당 챕터(`'01' | '02' | '03'`) 배열에 항목 추가
+     ```ts
+     '01': [
+       { src: '/research/transformer_1.png', label: 'Variable Systolic Array' },
+       { src: '/research/내-figure.png',     label: '내가 추가한 figure' },  // ← 새 항목
+       ...
+     ],
+     ```
+     - `label` 은 라이트박스 헤더에만 표시 (생략 가능, 생략 시 `Figure n`).
+     - `caption` 필드를 두면 라이트박스에 부가 설명도 함께 표시.
+  3. 한 줄에 최대 6칸까지 자동으로 배치됩니다. 7장 이상이면 컬럼이 6에 고정되고 다음 줄로 흐릅니다.
+- **SVG 도식 자체를 바꾸려면** `ResearchArt.tsx` 의 `SoCDieArt` / `AIAttentionArt` / `ArchPipelineArt` 등을 직접 편집하세요.
+- 인용 메타(`FIGURE_BY_NO` 의 `caption`, `source`, `url`) 는 현재 화면에 노출되지 않지만, 출처 보관용으로 그대로 두는 것을 권장합니다.
 
 ### 4-3. R&D 과제 / 칩 (Projects)
 **파일**: `components/sections/ProjectsSection.tsx`

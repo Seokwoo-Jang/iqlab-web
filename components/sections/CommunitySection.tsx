@@ -38,8 +38,7 @@ const GALLERY: Photo[] = [
     label: 'Lab 합동 회식 — 압구정 화연산장',
     date: '2025.02.26',
     src: '/community/2025-02-26.jpg',
-    caption:
-      '한 학기 무사 종료 기념, IQLAB 전원 출동! 압구정 화연산장 앞에서 V자 사인과 함께 두툼한 소고기로 영혼 충전. 회로처럼 단단한 팀워크는 역시 미디엄 굽기에서 완성됩니다.',
+    caption: '졸업 기념 및 새학기를 앞두고 IQLAB 전원 합동 회식!',
   },
   { kind: 'event', label: 'MPW 칩 도착', tone: 'from-red-900/40' },
   { kind: 'event', label: '여름 워크샵', tone: 'from-emerald-900/40' },

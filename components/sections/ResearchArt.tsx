@@ -402,14 +402,12 @@ export type ResearchFigure = {
 
 export const FIGURE_BY_NO: Partial<Record<string, ResearchFigure>> = {
   '01': {
-    src: '/research/merged_transformer.png',
     caption:
       'Edge AI accelerator block diagram: Variable Systolic Array Transformer engine, hardware-assisted NPU virtualization scheduler, and in-memory matrix multiplication layer.',
     source:
       'Based on the Lab\u2019s work on Variable Systolic Array Transformer (Electronics, MDPI) and Hardware-Assisted NPU Virtualization (Sensors, MDPI).',
   },
   '02': {
-    src: '/research/merged_cal.png',
     caption:
       'Heterogeneous sensor SoC architecture: AFE \u2192 Decimation Filter \u2192 ToF / envelope detector \u2192 segmented 2D polynomial calibration processor.',
     source:
@@ -417,7 +415,6 @@ export const FIGURE_BY_NO: Partial<Record<string, ResearchFigure>> = {
     url: 'https://doi.org/10.3390/jsan14010012',
   },
   '03': {
-    src: '/research/merged_neuromorphic.png',
     caption:
       'Neuromorphic processor with Unified Refractory-control Neuron (UREN) router on a star-topology NoC, supporting nearest-neighbor STDP for on-chip learning. Implemented in Samsung 28 nm full-custom silicon (2025).',
     source:
