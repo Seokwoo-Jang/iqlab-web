@@ -9,106 +9,318 @@ import type { FC } from 'react';
 //   03 Neuromorphic Computing & SNN-based Low-Power AI      → NeuromorphicArt
 // ----------------------------------------------------------------------------
 
+// ----------------------------------------------------------------------------
+// 01 — Edge AI NPU Virtualization & AI Semiconductor Design
+//   Multi-model workloads → NPU Virtualization (vNPU slicing + HW scheduler)
+//   → Physical NPU (Variable Systolic Array + In-Memory Computing + NoC)
+//   하단 띠: HW ↔ SW Co-Optimization 스택
+// ----------------------------------------------------------------------------
 export function AIAttentionArt() {
+  const ACC = '#00D4FF';
+  const vUtil = [0.85, 0.55, 0.75];
+  const vColors: Record<number, string> = { 0: `${ACC}aa`, 1: `${ACC}55`, 2: `${ACC}cc` };
+
   return (
     <svg viewBox="0 0 400 220" className="w-full h-auto" preserveAspectRatio="xMidYMid meet">
       <rect width="400" height="220" fill="#020514" />
       <text x="200" y="14" textAnchor="middle" fontSize="9" fill="white" fontFamily="monospace" fontWeight="bold" letterSpacing="0.5">
-        TRANSFORMER ATTENTION + SYSTOLIC ARRAY
+        EDGE AI · NPU VIRTUALIZATION + VARIABLE SYSTOLIC + IMC
       </text>
 
-      {/* Embedding */}
-      <g transform="translate(15, 30)">
-        <rect width="38" height="150" fill="#00D4FF15" stroke="#00D4FF" strokeWidth="0.5" />
-        <text x="19" y="80" textAnchor="middle" fontSize="7.5" fill="#00D4FF" fontFamily="monospace" fontWeight="bold" transform="rotate(-90 19 80)">
-          EMBEDDING
+      {/* ─────────────────────────────────────────────────────────────── */}
+      {/* LEFT — Multi-model / Multi-tenant workloads                      */}
+      {/* ─────────────────────────────────────────────────────────────── */}
+      <g transform="translate(10, 24)">
+        <rect width="110" height="130" fill={`${ACC}10`} stroke={`${ACC}55`} strokeWidth="0.5" />
+        <text x="55" y="11" textAnchor="middle" fontSize="6" fill={ACC} fontFamily="monospace" fontWeight="bold">
+          MULTI-MODEL · TENANT
         </text>
-      </g>
 
-      {/* Q, K, V projection */}
-      <g transform="translate(64, 30)">
-        {(['Q', 'K', 'V'] as const).map((label, i) => (
-          <g key={label} transform={`translate(0, ${i * 52})`}>
-            <rect width="42" height="46" fill="#00D4FF22" stroke="#00D4FF" strokeWidth="0.6" />
-            <text x="21" y="20" textAnchor="middle" fontSize="11" fill="white" fontFamily="monospace" fontWeight="bold">{label}</text>
-            <text x="21" y="34" textAnchor="middle" fontSize="6" fill="#00D4FF" fontFamily="monospace">PROJ · INT4</text>
-          </g>
-        ))}
-      </g>
-
-      {/* MatMul QK^T */}
-      <g transform="translate(120, 60)">
-        <rect width="48" height="40" fill="#00D4FF35" stroke="#00D4FF" strokeWidth="0.7" />
-        <text x="24" y="18" textAnchor="middle" fontSize="7" fill="white" fontFamily="monospace" fontWeight="bold">MatMul</text>
-        <text x="24" y="29" textAnchor="middle" fontSize="6.5" fill="#00D4FF" fontFamily="monospace">QKᵀ / √d</text>
-      </g>
-
-      {/* Softmax */}
-      <g transform="translate(180, 60)">
-        <rect width="48" height="40" fill="#00D4FF22" stroke="#00D4FF" strokeWidth="0.6" />
-        <text x="24" y="18" textAnchor="middle" fontSize="7" fill="white" fontFamily="monospace" fontWeight="bold">Softmax</text>
-        <text x="24" y="29" textAnchor="middle" fontSize="6" fill="#00D4FF" fontFamily="monospace">FP8</text>
-      </g>
-
-      {/* MatMul · V */}
-      <g transform="translate(240, 60)">
-        <rect width="48" height="40" fill="#00D4FF35" stroke="#00D4FF" strokeWidth="0.7" />
-        <text x="24" y="18" textAnchor="middle" fontSize="7" fill="white" fontFamily="monospace" fontWeight="bold">MatMul</text>
-        <text x="24" y="29" textAnchor="middle" fontSize="6.5" fill="#00D4FF" fontFamily="monospace">Score · V</text>
-      </g>
-
-      {/* Output proj */}
-      <g transform="translate(300, 60)">
-        <rect width="40" height="40" fill="#00D4FF22" stroke="#00D4FF" strokeWidth="0.6" />
-        <text x="20" y="20" textAnchor="middle" fontSize="6.5" fill="white" fontFamily="monospace" fontWeight="bold">OUTPUT</text>
-        <text x="20" y="31" textAnchor="middle" fontSize="6" fill="#00D4FF" fontFamily="monospace">PROJ</text>
-      </g>
-
-      {/* PE Array (systolic) */}
-      <g transform="translate(348, 30)">
-        <text x="22" y="-3" textAnchor="middle" fontSize="6" fill="#00D4FF" fontFamily="monospace" fontWeight="bold">PE ARRAY</text>
-        <rect width="46" height="150" fill="none" stroke="#00D4FF" strokeWidth="0.6" />
-        {Array.from({ length: 64 }).map((_, i) => (
-          <rect
-            key={i}
-            x={2 + (i % 8) * 5.5}
-            y={2 + Math.floor(i / 8) * 18.4}
-            width="4.5"
-            height="17"
-            fill={`rgba(0,212,255,${0.15 + ((i * 13) % 7) * 0.07})`}
+        {/* Speech AI */}
+        <g transform="translate(6, 18)">
+          <rect width="98" height="30" fill={`${ACC}22`} stroke={ACC} strokeWidth="0.6" />
+          <text x="5" y="10" fontSize="6" fill="white" fontFamily="monospace" fontWeight="bold">SPEECH AI</text>
+          <path
+            d="M 5 22 Q 9 16, 13 22 T 21 22 T 29 22 T 37 22 T 45 22 T 53 22 T 61 22 T 69 22 T 77 22 T 85 22 T 93 22"
+            fill="none"
+            stroke={ACC}
+            strokeWidth="0.7"
           />
-        ))}
-        <text x="23" y="166" textAnchor="middle" fontSize="5.5" fill="#00D4FF" fontFamily="monospace" opacity="0.85">8×8 · INT4</text>
+          <text x="93" y="11" textAnchor="end" fontSize="4.5" fill={`${ACC}aa`} fontFamily="monospace">RNN-T · 16k</text>
+        </g>
+
+        {/* Vision AI */}
+        <g transform="translate(6, 54)">
+          <rect width="98" height="30" fill={`${ACC}22`} stroke={ACC} strokeWidth="0.6" />
+          <text x="5" y="10" fontSize="6" fill="white" fontFamily="monospace" fontWeight="bold">VISION AI</text>
+          {Array.from({ length: 12 }).map((_, i) => (
+            <rect
+              key={i}
+              x={5 + (i % 6) * 3.6}
+              y={14 + Math.floor(i / 6) * 4}
+              width="2.8"
+              height="3"
+              fill={`${ACC}${(i % 3) === 0 ? 'cc' : '66'}`}
+            />
+          ))}
+          <text x="93" y="11" textAnchor="end" fontSize="4.5" fill={`${ACC}aa`} fontFamily="monospace">MobileViT · 224²</text>
+          <text x="93" y="25" textAnchor="end" fontSize="4" fill={`${ACC}88`} fontFamily="monospace">det · seg · cls</text>
+        </g>
+
+        {/* Sensor AI */}
+        <g transform="translate(6, 90)">
+          <rect width="98" height="30" fill={`${ACC}22`} stroke={ACC} strokeWidth="0.6" />
+          <text x="5" y="10" fontSize="6" fill="white" fontFamily="monospace" fontWeight="bold">SENSOR AI</text>
+          {/* zig-zag sensor stream */}
+          <path
+            d="M 5 22 L 12 16 L 18 24 L 26 14 L 32 22 L 40 18 L 48 24 L 56 16 L 64 22 L 72 20 L 80 24 L 88 18 L 93 22"
+            fill="none"
+            stroke={ACC}
+            strokeWidth="0.7"
+          />
+          <text x="93" y="11" textAnchor="end" fontSize="4.5" fill={`${ACC}aa`} fontFamily="monospace">IMU + Bio · LSTM</text>
+        </g>
       </g>
 
-      {/* Connections */}
-      <g stroke="rgba(0,212,255,0.55)" strokeWidth="0.6" fill="none">
-        <line x1="53" y1="50" x2="64" y2="50" />
-        <line x1="53" y1="105" x2="64" y2="105" />
-        <line x1="53" y1="158" x2="64" y2="158" />
-        <line x1="106" y1="50" x2="120" y2="75" />
-        <line x1="106" y1="105" x2="120" y2="80" />
-        <line x1="168" y1="80" x2="180" y2="80" />
-        <line x1="228" y1="80" x2="240" y2="80" />
-        <line x1="106" y1="158" x2="240" y2="92" />
-        <line x1="288" y1="80" x2="300" y2="80" />
-        <line x1="340" y1="80" x2="348" y2="105" />
+      {/* Connecting arrows: workloads → vNPU slices */}
+      <g stroke={`${ACC}88`} strokeWidth="0.7" fill="none">
+        <line x1="120" y1="42" x2="132" y2="46" />
+        <line x1="120" y1="78" x2="132" y2="68" />
+        <line x1="120" y1="114" x2="132" y2="90" />
+      </g>
+      <g fill={`${ACC}aa`}>
+        <polygon points="132,46 128,44 128,48" />
+        <polygon points="132,68 128,66 128,70" />
+        <polygon points="132,90 128,88 128,92" />
       </g>
 
-      {/* Bottom labels */}
-      <g transform="translate(15, 188)">
-        <rect width="92" height="14" rx="2" fill="#00D4FF40" stroke="#00D4FF" strokeWidth="0.5" />
-        <text x="46" y="10" textAnchor="middle" fontSize="6.5" fill="white" fontFamily="monospace" fontWeight="bold">INT4 / FP8 Quant.</text>
-      </g>
-      <g transform="translate(115, 188)">
-        <rect width="86" height="14" rx="2" fill="#00D4FF22" stroke="#00D4FF" strokeWidth="0.5" />
-        <text x="43" y="10" textAnchor="middle" fontSize="6.5" fill="#00D4FF" fontFamily="monospace">KV-Cache · Compress</text>
-      </g>
-      <g transform="translate(209, 188)">
-        <rect width="100" height="14" rx="2" fill="#00D4FF22" stroke="#00D4FF" strokeWidth="0.5" />
-        <text x="50" y="10" textAnchor="middle" fontSize="6.5" fill="#00D4FF" fontFamily="monospace">Sparse Attention · 90%</text>
+      {/* ─────────────────────────────────────────────────────────────── */}
+      {/* MIDDLE — NPU Virtualization (vNPU slicing + scheduler)           */}
+      {/* ─────────────────────────────────────────────────────────────── */}
+      <g transform="translate(126, 24)">
+        <rect width="130" height="130" fill={`${ACC}10`} stroke={`${ACC}55`} strokeWidth="0.5" />
+        <text x="65" y="11" textAnchor="middle" fontSize="6" fill={ACC} fontFamily="monospace" fontWeight="bold">
+          HW-ASSISTED NPU VIRTUALIZATION
+        </text>
+
+        {/* vNPU slices with utilization bars */}
+        <g transform="translate(6, 18)">
+          {['vNPU 0', 'vNPU 1', 'vNPU 2'].map((name, i) => (
+            <g key={name} transform={`translate(0, ${i * 20})`}>
+              <rect width="118" height="18" fill={`${ACC}22`} stroke={ACC} strokeWidth="0.5" />
+              <text x="5" y="11.5" fontSize="6" fill="white" fontFamily="monospace" fontWeight="bold">{name}</text>
+              {/* util bar */}
+              <rect x="42" y="4" width="60" height="10" fill={`${ACC}15`} stroke={`${ACC}55`} strokeWidth="0.3" />
+              <rect x="42" y="4" width={60 * vUtil[i]} height="10" fill={ACC} opacity={0.5 + i * 0.15} />
+              <text x="115" y="11.5" textAnchor="end" fontSize="5" fill={`${ACC}dd`} fontFamily="monospace" fontWeight="bold">
+                {Math.round(vUtil[i] * 100)}%
+              </text>
+            </g>
+          ))}
+        </g>
+
+        {/* Isolation badge */}
+        <g transform="translate(6, 82)">
+          <rect width="118" height="11" rx="1.5" fill={`${ACC}1a`} stroke={`${ACC}66`} strokeWidth="0.3" />
+          <text x="59" y="8" textAnchor="middle" fontSize="5" fill={`${ACC}dd`} fontFamily="monospace">
+            ISOLATION · QoS · MMU · PREFETCH
+          </text>
+        </g>
+
+        {/* HW Scheduler timeline */}
+        <g transform="translate(6, 96)">
+          <text x="0" y="7" fontSize="5.5" fill={ACC} fontFamily="monospace" fontWeight="bold">HW SCHEDULER</text>
+          <rect x="0" y="10" width="118" height="12" fill={`${ACC}12`} stroke={`${ACC}55`} strokeWidth="0.3" />
+          {[
+            { x: 0, w: 18, v: 0 },
+            { x: 18, w: 14, v: 1 },
+            { x: 32, w: 22, v: 2 },
+            { x: 54, w: 16, v: 0 },
+            { x: 70, w: 14, v: 1 },
+            { x: 84, w: 12, v: 2 },
+            { x: 96, w: 22, v: 0 },
+          ].map((slot, i) => (
+            <g key={i}>
+              <rect
+                x={slot.x}
+                y="10"
+                width={slot.w}
+                height="12"
+                fill={vColors[slot.v]}
+                stroke={ACC}
+                strokeWidth="0.25"
+              />
+              <text
+                x={slot.x + slot.w / 2}
+                y="18.5"
+                textAnchor="middle"
+                fontSize="4.5"
+                fill="white"
+                fontFamily="monospace"
+                fontWeight="bold"
+              >
+                v{slot.v}
+              </text>
+            </g>
+          ))}
+          <text x="0" y="30" fontSize="4.5" fill={`${ACC}88`} fontFamily="monospace">t →</text>
+          <text x="118" y="30" textAnchor="end" fontSize="4.5" fill={`${ACC}88`} fontFamily="monospace">context-switch</text>
+        </g>
       </g>
 
+      {/* Arrow: vNPU → Physical NPU */}
+      <g stroke={`${ACC}aa`} strokeWidth="0.8" fill="none">
+        <line x1="256" y1="80" x2="262" y2="80" />
+      </g>
+      <polygon points="262,80 258,77 258,83" fill={`${ACC}aa`} />
+
+      {/* ─────────────────────────────────────────────────────────────── */}
+      {/* RIGHT — Physical NPU: Variable Systolic + IMC + L1 + NoC        */}
+      {/* ─────────────────────────────────────────────────────────────── */}
+      <g transform="translate(262, 24)">
+        <rect width="128" height="130" fill={`${ACC}10`} stroke={`${ACC}55`} strokeWidth="0.5" />
+        <text x="64" y="11" textAnchor="middle" fontSize="6" fill={ACC} fontFamily="monospace" fontWeight="bold">
+          PHYSICAL NPU
+        </text>
+
+        {/* Variable Systolic Array */}
+        <g transform="translate(6, 17)">
+          <rect width="70" height="78" fill={`${ACC}1a`} stroke={ACC} strokeWidth="0.6" />
+          <text x="35" y="10" textAnchor="middle" fontSize="5.5" fill="white" fontFamily="monospace" fontWeight="bold">
+            VAR. SYSTOLIC
+          </text>
+          {/* PE grid 8 cols × 6 rows; first 6×4 = active */}
+          {Array.from({ length: 48 }).map((_, i) => {
+            const col = i % 8;
+            const row = Math.floor(i / 8);
+            const isActive = col < 6 && row < 4;
+            return (
+              <rect
+                key={i}
+                x={4 + col * 7.7}
+                y={14 + row * 9.2}
+                width="6.4"
+                height="7.6"
+                fill={isActive ? `${ACC}aa` : `${ACC}25`}
+                stroke={ACC}
+                strokeWidth="0.25"
+              />
+            );
+          })}
+          {/* dashed boundary highlighting active region */}
+          <rect x="3.5" y="13" width="47.2" height="37.6" fill="none" stroke="#FFFFFF" strokeWidth="0.7" strokeDasharray="2 1.5" />
+          <text x="35" y="64" textAnchor="middle" fontSize="4.5" fill={`${ACC}cc`} fontFamily="monospace">
+            6×4 active / 8×6 max
+          </text>
+          <text x="35" y="72" textAnchor="middle" fontSize="4.5" fill={`${ACC}88`} fontFamily="monospace">
+            INT4 · row-major
+          </text>
+        </g>
+
+        {/* IMC MAC */}
+        <g transform="translate(82, 17)">
+          <rect width="40" height="36" fill={`${ACC}28`} stroke={ACC} strokeWidth="0.7" />
+          <text x="20" y="10" textAnchor="middle" fontSize="5.5" fill="white" fontFamily="monospace" fontWeight="bold">IMC MAC</text>
+          {Array.from({ length: 12 }).map((_, i) => (
+            <rect
+              key={i}
+              x={3 + (i % 4) * 9}
+              y={13 + Math.floor(i / 4) * 6}
+              width="8"
+              height="5"
+              fill={`${ACC}${i % 2 === 0 ? '99' : '55'}`}
+              stroke={ACC}
+              strokeWidth="0.2"
+            />
+          ))}
+          <text x="20" y="34" textAnchor="middle" fontSize="4" fill={`${ACC}cc`} fontFamily="monospace">SRAM-CIM 256Kb</text>
+        </g>
+
+        {/* L1 / KV cache */}
+        <g transform="translate(82, 57)">
+          <rect width="40" height="38" fill={`${ACC}15`} stroke={ACC} strokeWidth="0.5" />
+          <text x="20" y="10" textAnchor="middle" fontSize="5.5" fill="white" fontFamily="monospace" fontWeight="bold">L1 · WGT</text>
+          {Array.from({ length: 8 }).map((_, i) => (
+            <rect
+              key={i}
+              x={3 + (i % 4) * 9}
+              y={13 + Math.floor(i / 4) * 6.5}
+              width="8"
+              height="5.5"
+              fill={`${ACC}33`}
+              stroke={`${ACC}88`}
+              strokeWidth="0.25"
+            />
+          ))}
+          <text x="20" y="35" textAnchor="middle" fontSize="4" fill={`${ACC}cc`} fontFamily="monospace">KV-Cache</text>
+        </g>
+
+        {/* NoC fabric */}
+        <g transform="translate(6, 100)">
+          <rect width="116" height="22" fill={`${ACC}22`} stroke={ACC} strokeWidth="0.6" />
+          <text x="58" y="9" textAnchor="middle" fontSize="5.5" fill="white" fontFamily="monospace" fontWeight="bold">
+            NoC · AXI4-STREAM · DMA
+          </text>
+          {Array.from({ length: 18 }).map((_, i) => (
+            <rect key={i} x={4 + i * 6.4} y="13" width="2" height="6" fill={ACC} opacity={0.4 + ((i * 7) % 6) * 0.1} />
+          ))}
+        </g>
+      </g>
+
+      {/* ─────────────────────────────────────────────────────────────── */}
+      {/* BOTTOM — HW ↔ SW Co-Optimization stack                          */}
+      {/* ─────────────────────────────────────────────────────────────── */}
+      <g transform="translate(10, 160)">
+        <rect width="380" height="50" fill={`${ACC}0a`} stroke={`${ACC}55`} strokeWidth="0.5" strokeDasharray="3 2" />
+        <text x="6" y="11" fontSize="6" fill={ACC} fontFamily="monospace" fontWeight="bold">
+          HARDWARE ↔ SOFTWARE CO-OPTIMIZATION
+        </text>
+
+        {(() => {
+          const stages = [
+            { name: 'MODEL', sub: 'PyTorch / ONNX' },
+            { name: 'COMPILER', sub: 'graph · fuse' },
+            { name: 'SDK', sub: 'INT4 quant.' },
+            { name: 'RUNTIME', sub: 'sched · alloc' },
+            { name: 'PROFILER', sub: 'cycle · power' },
+            { name: 'NPU HW', sub: 'sysarr · IMC' },
+          ];
+          const w = 56;
+          const gap = 6;
+          const startX = 8;
+          return (
+            <>
+              {stages.map((s, i) => (
+                <g key={s.name} transform={`translate(${startX + i * (w + gap)}, 16)`}>
+                  <rect
+                    width={w}
+                    height="28"
+                    fill={`${ACC}${i === 0 || i === stages.length - 1 ? '33' : '20'}`}
+                    stroke={ACC}
+                    strokeWidth="0.6"
+                  />
+                  <text x={w / 2} y="12" textAnchor="middle" fontSize="6.5" fill="white" fontFamily="monospace" fontWeight="bold">
+                    {s.name}
+                  </text>
+                  <text x={w / 2} y="22" textAnchor="middle" fontSize="4.5" fill={`${ACC}cc`} fontFamily="monospace">
+                    {s.sub}
+                  </text>
+                </g>
+              ))}
+              {/* between-stage arrows */}
+              {stages.slice(0, -1).map((_, i) => {
+                const ax = startX + (i + 1) * (w + gap) - gap;
+                return (
+                  <g key={`arr-${i}`}>
+                    <line x1={ax} y1={30} x2={ax + gap} y2={30} stroke={`${ACC}aa`} strokeWidth="0.6" />
+                    <polygon points={`${ax + gap},30 ${ax + gap - 2.5},28.5 ${ax + gap - 2.5},31.5`} fill={`${ACC}aa`} />
+                  </g>
+                );
+              })}
+            </>
+          );
+        })()}
+      </g>
     </svg>
   );
 }

@@ -30,7 +30,7 @@ export function SectionShell({
         {hasHeader ? (
           <div className="mb-12 text-center">
             <p
-              className="text-[11px] font-mono tracking-[0.35em] uppercase mb-3"
+              className="text-base md:text-lg font-mono tracking-[0.32em] uppercase mb-4"
               style={{ color: '#DC2626' }}
             >
               {eyebrow}
@@ -49,7 +49,7 @@ export function SectionShell({
         ) : (
           <div className="mb-10 text-center">
             <p
-              className="text-[11px] font-mono tracking-[0.35em] uppercase"
+              className="text-xl md:text-2xl font-mono font-bold tracking-[0.3em] uppercase"
               style={{ color: '#DC2626' }}
             >
               {eyebrow}
