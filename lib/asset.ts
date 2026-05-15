@@ -7,11 +7,11 @@
 //방지하기 위해, `public/` 자산을 참조할 때는 항상 이 헬퍼로 감싸세요.
 //
 // 사용 예:
-//   <img src={asset("/dongsun.jpg")} />
+//   <img src={asset("/members/dongsun.jpg")} />
 //   <img src={asset(member.photo)} />
 //
 // 로컬 개발(`npm run dev`)에서는 NEXT_PUBLIC_BASE_PATH 가 비어 있으므로
-// 평소처럼 `/dongsun.jpg` 그대로 동작합니다.
+// 평소처럼 `/members/dongsun.jpg` 그대로 동작합니다.
 // ----------------------------------------------------------------------------
 
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";

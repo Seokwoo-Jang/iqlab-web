@@ -21,7 +21,7 @@ export default function HeroSection() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: `url(${asset('/hero-template-remove.png')})`,
+          backgroundImage: `url(${asset('/hero/hero-template-remove.png')})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
@@ -78,7 +78,7 @@ export default function HeroSection() {
         <div className="flex flex-col items-center gap-3 mb-5 mx-auto w-full max-w-3xl">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={asset('/sejong-logo.png')}
+            src={asset('/brand/sejong-logo.png')}
             alt="Sejong University"
             className="w-full h-auto opacity-95"
             style={{ filter: 'drop-shadow(0 0 10px rgba(0,0,0,0.6))' }}

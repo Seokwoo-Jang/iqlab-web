@@ -17,15 +17,20 @@ npm run dev
 
 브라우저에서 <http://localhost:3000> 접속.
 
-## 사진 저장 디렉토리
+## 사진 추가하기
 
-모든 이미지는 **`public/` 폴더** 아래에 둡니다.
+모든 이미지는 **`public/` 폴더** 아래에 두며, **용도(=사용 섹션)별 하위 폴더**로 정리합니다.
 
-| 종류 | 저장 경로 | 코드에서 참조 |
+### 1. 저장 경로 & 코드 참조
+
+| 종류 / 사용 섹션 | 저장 경로 | 코드에서 참조 |
 |---|---|---|
-| 일반 이미지 (인물 등) | `public/이름-성.jpg` | `asset('/이름-성.jpg')` |
-| 칩 다이샷 | `public/chips/sf028-XXXX-name.jpg` | `asset('/chips/sf028-XXXX-name.jpg')` |
-| 연구 figure | `public/research/내-figure.png` | `asset('/research/내-figure.png')` |
+| 멤버 사진 (Members) | `public/members/이름-성.jpg` | `asset('/members/이름-성.jpg')` |
+| 칩 다이샷 (Projects) | `public/chips/sf028-XXXX-name.jpg` | `asset('/chips/sf028-XXXX-name.jpg')` |
+| 연구 figure (Research) | `public/research/내-figure.png` | `asset('/research/내-figure.png')` |
+| 갤러리·뉴스 (Community) | `public/community/이벤트-이름.png` | `asset('/community/이벤트-이름.png')` |
+| 메인 히어로 (Hero) | `public/hero/이름.png` | `asset('/hero/이름.png')` |
+| 로고·학교 브랜드 | `public/brand/이름.png` | `asset('/brand/이름.png')` |
 
 **파일명 규칙**: 영문 소문자 + 하이픈(`-`) 권장. 한글·공백·대문자는 피하세요.
 
@@ -33,8 +38,16 @@ npm run dev
 
 ```tsx
 import { asset } from './lib/asset';
-<img src={asset('/dongsun.jpg')} />
+<img src={asset('/members/dongsun.jpg')} />
 ```
+
+### 2. 추가 절차 (3단계)
+
+1. 위 표를 보고 **어느 섹션에서 쓰이는지** 정한 뒤, 해당 `public/<섹션>/` 폴더에 이미지 업로드
+2. 해당 섹션의 `.tsx` 파일 (아래 표 참고) 안의 **데이터 배열에 항목 한 줄 추가**
+3. `git push` → 약 2분 후 사이트에 자동 반영
+
+> 각 섹션별 배열 형식 / 필드 의미 / 정렬·페이지네이션·라이트박스 등 **자세한 배치 알고리즘과 코드 예시**는 [MAINTENANCE.md](./MAINTENANCE.md#3-사진이미지-추가하는-법) 를 참고하세요.
 
 ## 콘텐츠 / 멤버 / 논문 추가하기
 

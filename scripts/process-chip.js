@@ -15,7 +15,7 @@ async function main() {
     'assets',
     'c__Users_wkdtj_AppData_Roaming_Cursor_User_workspaceStorage_d21a256abdfc6fe94dde9cd581d38208_images_image-74dbfe91-8005-4279-9371-c1b913389109.png',
   );
-  const output = path.resolve(__dirname, '..', 'public', 'chip-stock.png');
+  const output = path.resolve(__dirname, '..', 'public', 'hero', 'chip-stock.png');
 
   const { data, info } = await sharp(input)
     .ensureAlpha()

@@ -45,9 +45,13 @@ iqlab-web/                    ← git 저장소 루트
 │   └── sections/             ← 각 섹션 (Members, Research, Projects ...)
 ├── lib/
 │   └── asset.ts              ← 이미지 경로 헬퍼 (basePath 자동 처리)
-├── public/                   ← 이미지·SVG·파비콘 등 정적 파일
-│   ├── chips/                ← 칩 다이샷 사진
-│   └── research/             ← 연구 figure 이미지 (필요 시)
+├── public/                   ← 이미지·SVG·파비콘 등 정적 파일 (용도별 하위 폴더)
+│   ├── brand/                ← 로고·학교 브랜드 (IQLAB / Sejong)
+│   ├── hero/                 ← 메인 히어로 영역 이미지
+│   ├── members/              ← 멤버 인물 사진
+│   ├── community/            ← 갤러리·뉴스·이벤트 사진
+│   ├── chips/                ← 칩 다이샷 사진 (Projects 섹션)
+│   └── research/             ← 연구 figure 이미지 (Research 섹션)
 ├── package.json
 ├── next.config.ts
 └── README.md
@@ -57,11 +61,28 @@ iqlab-web/                    ← git 저장소 루트
 
 ## 3. 사진(이미지) 추가하는 법
 
+> **요약 흐름 (3단계)**
+>
+> 1. `public/<섹션 폴더>/` 에 이미지 업로드 → [§3-1](#3-1-어디에-두면-되나)
+> 2. 해당 섹션의 `.tsx` 파일 **데이터 배열에 항목 한 줄 추가** → [§4](#4-콘텐츠별-수정-위치)
+> 3. `git push` → 약 2분 뒤 사이트에 자동 반영 → [§5](#5-git-으로-변경-사항-올리기)
+>
+> **각 섹션별 배열 형식 / 필드 의미 / 정렬·페이지네이션·라이트박스 등 배치 알고리즘** 은
+> §4 의 해당 섹션 (4-1 멤버, 4-2 연구, 4-3 칩, 4-4 논문, 4-5 갤러리) 항목을 참고하세요.
+
 ### 3-1. 어디에 두면 되나?
-모든 이미지는 **`public/`** 아래에 둡니다.
-- 일반 이미지 → `public/파일명.jpg`
-- 칩 다이샷 → `public/chips/파일명.jpg`
-- 연구 figure → `public/research/파일명.png`
+모든 이미지는 **`public/`** 아래에 두되, **사용되는 섹션(Chapter)에 맞춰 하위 폴더**로 분류합니다.
+
+| 사용 섹션 / 용도 | 저장 폴더 | 사용 컴포넌트 |
+|---|---|---|
+| 멤버 사진 (교수·졸업생) | `public/members/` | `components/sections/MembersSection.tsx` |
+| 칩 다이샷 | `public/chips/` | `components/sections/ProjectsSection.tsx` |
+| 연구 figure | `public/research/` | `components/sections/ResearchSection.tsx`, `ResearchArt.tsx` |
+| 갤러리·뉴스·이벤트 | `public/community/` | `components/sections/CommunitySection.tsx` |
+| 메인 히어로 / 마인드맵 | `public/hero/` | `components/hero/HeroSection.tsx`, `ChipMindMap.tsx` |
+| 로고 (IQLAB / 세종대) | `public/brand/` | `components/IqlabLogo.tsx`, `HeroSection.tsx`, `CommunitySection.tsx` |
+
+> 어느 폴더로 갈지 헷갈리면 **"어느 섹션에서 보일 사진인가?"** 를 기준으로 정하세요. Next.js 기본 SVG(`next.svg`, `vercel.svg`, `file.svg`, `globe.svg`, `window.svg`) 는 사용하지 않으며 루트에 그대로 두어도 무방합니다.
 
 ### 3-2. 코드에서 어떻게 참조하나?
 `public/` 안의 파일은 **앞의 `public/` 을 빼고** 절대경로 `/` 로 시작합니다. 그리고 반드시 **`asset()` 헬퍼로 감싸서** 사용하세요 (GitHub Pages 의 basePath 자동 처리).
@@ -69,40 +90,66 @@ iqlab-web/                    ← git 저장소 루트
 ```tsx
 import { asset } from '../lib/asset';   // (경로는 파일 위치에 따라 ../../lib/asset 등)
 
-<img src={asset('/dongsun.jpg')} alt="..." />
+<img src={asset('/members/dongsun.jpg')} alt="..." />
 <img src={asset(member.photo)} alt="..." />
 ```
 
 | 실제 파일 위치 | 코드에서 쓰는 경로 |
 |---|---|
-| `public/dongsun.jpg` | `asset('/dongsun.jpg')` |
+| `public/members/dongsun.jpg` | `asset('/members/dongsun.jpg')` |
+| `public/members/seokwoo-chang.jpg` | `asset('/members/seokwoo-chang.jpg')` |
 | `public/chips/sf028-2401-neuromorphic.jpg` | `asset('/chips/sf028-2401-neuromorphic.jpg')` |
-| `public/research/uren-router.png` | `asset('/research/uren-router.png')` |
+| `public/research/merged_transformer.png` | `asset('/research/merged_transformer.png')` |
+| `public/community/award-2025-semiconductor-design.png` | `asset('/community/award-2025-semiconductor-design.png')` |
+| `public/hero/hero-template-remove.png` | `asset('/hero/hero-template-remove.png')` |
+| `public/brand/iqlab-logo-remove.png` | `asset('/brand/iqlab-logo-remove.png')` |
 
 ### 3-3. 파일명 규칙 (권장)
 - 영문 소문자 + 하이픈(`-`) 만 사용. 예: `seokwoo-chang.jpg`
 - 한글·공백·대문자는 피할 것 (URL 깨짐, 일부 호스팅에서 404 발생)
-- 인물 사진은 `이름-성.jpg`, 칩은 `프로젝트코드-용도.jpg`
+- 인물 사진은 `이름-성.jpg`, 칩은 `프로젝트코드-용도.jpg`, 이벤트는 `이벤트-연도.png`
 
 ### 3-4. 현재 저장된 이미지 목록
 ```
 public/
-├── dongsun.jpg                          김동순 교수
-├── seokwoo-chang.jpg                    장석우 졸업생
-├── iqlab-logo.png / .svg                IQLAB 로고
-├── iqlab-logo-remove.png                IQLAB 로고 (배경 제거)
-├── iqlab-mark.svg                       IQLAB 심볼
-├── sejong-logo.png                      세종대 로고
-├── sejong-clocktower.png                세종대 시계탑
-├── hero-chip.png                        메인 히어로 칩 사진
-├── hero-template-remove.png             히어로 템플릿 (배경 제거)
-├── chip-stock.png                       칩 마인드맵용 스톡 칩 이미지
-├── award-2025-semiconductor-design.png  2025 반도체 설계대전 수상
-└── chips/
-    ├── sf028-2301-vehicle-camera.jpg    1st chip (차량용 카메라 SoC)
-    ├── sf028-2401-neuromorphic.jpg      2nd chip (뉴로모픽 프로세서)
-    └── sf028-2402-smart-meter.jpg       3rd chip (스마트미터 SoC)
+├── brand/                                       ← 로고·학교 브랜드
+│   ├── iqlab-logo.png                           IQLAB 풀 로고 (원본, 보관용)
+│   ├── iqlab-logo-only.png                      IQLAB 심볼만 (마인드맵 중앙)
+│   ├── iqlab-logo-remove.png                    IQLAB 풀 로고 (배경 제거, 네비바)
+│   ├── sejong-logo.png                          세종대학교 로고 (히어로)
+│   └── sejong-clocktower.png                    세종대 시계탑 (Community 컨택트)
+│
+├── hero/                                        ← 메인 히어로 영역
+│   ├── hero-chip.png                            (원본 보관, 현재 미사용)
+│   ├── hero-template-remove.png                 히어로 배경 칩 사진
+│   └── chip-stock.png                           칩 마인드맵용 스톡 칩 (보관)
+│
+├── members/                                     ← 멤버 사진
+│   ├── dongsun.jpg                              김동순 교수
+│   └── seokwoo-chang.jpg                        장석우 졸업생
+│
+├── community/                                   ← 갤러리·뉴스
+│   └── award-2025-semiconductor-design.png      2025 반도체 설계대전 수상
+│
+├── chips/                                       ← 칩 다이샷 (Projects)
+│   ├── sf028-2301-vehicle-camera.jpg            1st chip (차량용 카메라 SoC)
+│   ├── sf028-2401-neuromorphic.jpg              2nd chip (뉴로모픽 프로세서)
+│   └── sf028-2402-smart-meter.jpg               3rd chip (스마트미터 SoC)
+│
+├── research/                                    ← 연구 figure (Research)
+│   ├── merged_transformer.png                   Research 01 figure (Transformer/STAU)
+│   ├── merged_cal.png                           Research 02 figure (Polynomial Cal.)
+│   ├── merged_neuromorphic.png                  Research 03 figure (Neuromorphic SNN)
+│   ├── transformer_1..6.png                     Research 01 원본 소스
+│   ├── cal_1..3.gif                             Research 02 원본 소스
+│   └── neuromorphic_1..6.png                    Research 03 원본 소스
+│
+└── *.svg                                        Next.js 기본 (사용 안 함)
 ```
+
+### 3-5. 새 폴더가 필요할 때
+새로운 섹션·카테고리 사진이 늘어나면 `public/` 아래에 폴더를 하나 더 만들어도 됩니다.
+이 경우 위 표와 "3-4 이미지 목록"에 한 줄 추가해 두면 다음 사람이 헷갈리지 않습니다.
 
 ---
 
@@ -122,7 +169,7 @@ public/
   ];
   ```
 
-- **졸업생 추가**: `ALUMNI` 배열에 항목 추가. 사진은 `public/이름-성.jpg` 로 두고 `photo: '/이름-성.jpg'` 로 참조.
+- **졸업생 추가**: `ALUMNI` 배열에 항목 추가. 사진은 `public/members/이름-성.jpg` 로 두고 `photo: '/members/이름-성.jpg'` 로 참조.
   ```ts
   {
     id: 'hong-gil-dong',
@@ -130,7 +177,7 @@ public/
     grade: 'M.S.',
     graduation: '2027.02',
     company: 'Samsung Electronics',
-    photo: '/hong-gil-dong.jpg',          // 선택
+    photo: '/members/hong-gil-dong.jpg',  // 선택
     email: 'example@gmail.com',           // 선택
     accent: ALUMNI_ACCENT,
   },
@@ -180,19 +227,49 @@ public/
 
 ### 4-5. 갤러리·공지 (Community)
 **파일**: `components/sections/CommunitySection.tsx`
+**갤러리 UI 컴포넌트**: `components/sections/PhotoGallery.tsx` (수정할 일 거의 없음)
 
-- **사진 추가**:
-  1. 이미지를 `public/이벤트-이름.png` 에 업로드
-  2. `GALLERY` 배열에 항목 추가
+Community Photos 갤러리는 다음과 같이 자동 동작합니다.
+
+- `GALLERY` 배열에 항목만 추가하면 됩니다.
+- `kind: 'award'` 항목 중 **가장 최근 1개가 좌상단 첫 자리에 고정** 표시됩니다.
+  - **event 가 5장 이상**(= 첫 페이지가 award 포함 6장으로 가득 찰 때) → award 카드를 **2×2 feature** 로 강조
+  - event 가 5장 미만 → award 도 **1×1 일반 카드**(★ Award 배지는 유지) 로 표시되어 빈 공간이 생기지 않음
+  - award 가 여러 개면 가장 최근 1개만 위 규칙으로, 나머지는 일반 카드로 표시
+- `kind: 'event'` 항목은 `date` 내림차순(최신 → 과거) 으로 자동 정렬되어 **페이지당 6 슬롯** 으로 표시됩니다.
+- 사진이 한 페이지(6 슬롯)을 넘으면 갤러리 상단에 자동으로 **`◀ 최신` / `과거 ▶` 페이지 네비** 가 나타납니다.
+- 사진을 클릭하면 **라이트박스(모달)** 로 큰 사진 + 자세한 설명을 표시. ESC / 백드롭 클릭 / ◀▶ 키로도 조작 가능합니다.
+
+#### 사진 추가하는 법
+1. 이미지를 `public/community/YYYY-MM-DD.jpg` (또는 `이벤트-이름.png`) 에 업로드
+2. `GALLERY` 배열에 항목 추가
+
   ```ts
   {
+    kind: 'event',                              // 'award' | 'event'
     label: '2026 신입생 환영회',
-    date: '2026.03.02',
-    src: '/welcome-2026.png',
-    caption: '설명...',
-    feature: false,   // true 면 2칸 차지하는 강조 카드
+    date: '2026.03.02',                          // YYYY.MM.DD (정렬 기준)
+    src: '/community/2026-03-02.jpg',
+    caption: '카드와 라이트박스 상단에 보이는 짧은 설명.',
+    details:
+      '라이트박스에서만 보이는 더 자세한 내용.\n' +
+      '여러 줄로 작성해도 줄바꿈이 보존됩니다.',
   },
   ```
+
+#### 필드 설명
+| 필드 | 필수 | 설명 |
+|---|---|---|
+| `kind` | 권장 | `'award'` 면 항상 2×2 feature, 생략/`'event'` 면 일반 카드 |
+| `label` | ✅ | 카드 하단·라이트박스 헤더 제목 |
+| `date` | 권장 | `'YYYY.MM.DD'` 또는 `'YYYY.MM'`. 비우면 가장 과거로 정렬 |
+| `src` | — | `/community/...` 경로. 없으면 placeholder 카드 |
+| `caption` | — | 카드 하단·라이트박스 상단 한두 줄 설명 |
+| `details` | — | 라이트박스에서만 보이는 상세 본문 (줄바꿈 `\n` 보존) |
+| `tone` | — | `src` 없을 때 placeholder 그라데이션 색 (예: `'from-cyan-900/40'`) |
+
+> **수상(award) 항목**은 라이트박스/카드에 자동으로 ★ Award 배지가 붙습니다.
+> **placeholder**(`src` 없음) 는 클릭해도 라이트박스가 열리지 않습니다 — 사진이 준비되면 `src` 만 채우면 됩니다.
 
 ### 4-6. 메인 히어로 / 로고 / 네비게이션
 | 파일 | 용도 |
@@ -214,7 +291,7 @@ git status
 
 # 2) 변경한 파일 스테이징
 git add components/sections/MembersSection.tsx
-git add public/hong-gil-dong.jpg
+git add public/members/hong-gil-dong.jpg
 
 # 3) 커밋 (메시지는 한글 OK)
 git commit -m "Members: 새 졸업생 홍길동 추가"

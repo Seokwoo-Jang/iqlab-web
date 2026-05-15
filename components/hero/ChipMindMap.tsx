@@ -168,7 +168,7 @@ export default function ChipMindMap() {
             traces meet at. Aspect ratio is preserved (xMidYMid meet) so the
             brain stays naturally proportioned regardless of the hub rect. */}
         <image
-          href={asset('/iqlab-logo-only.png')}
+          href={asset('/brand/iqlab-logo-only.png')}
           x={CHIP.x}
           y={CHIP.y}
           width={CHIP.w}

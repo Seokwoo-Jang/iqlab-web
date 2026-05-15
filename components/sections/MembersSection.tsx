@@ -105,7 +105,7 @@ const ALUMNI: Alumni[] = [
     grade: 'M.S.',
     graduation: '2025.02',
     company: 'FADU',
-    photo: '/seokwoo-chang.jpg',
+    photo: '/members/seokwoo-chang.jpg',
     email: 'wkdtjrdn1223@gmail.com',
     education: [
       {
@@ -372,7 +372,7 @@ export default function MembersSection() {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={asset('/dongsun.jpg')}
+              src={asset('/members/dongsun.jpg')}
               alt="Prof. Dong Sun Kim"
               className="w-32 h-32 rounded-md shrink-0 object-cover border border-white/10"
               style={{ boxShadow: '0 4px 24px rgba(220,38,38,0.18)' }}

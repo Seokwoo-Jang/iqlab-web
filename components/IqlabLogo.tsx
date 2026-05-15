@@ -14,7 +14,7 @@ export default function IqlabLogo({ className = '' }: Props) {
     <span className={`inline-block ${className}`} style={{ lineHeight: 0 }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={asset('/iqlab-logo-remove.png')}
+        src={asset('/brand/iqlab-logo-remove.png')}
         alt="IQLAB — Intelligent SoC · Quantum Computing"
         className="h-full w-auto block"
       />
