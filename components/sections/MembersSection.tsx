@@ -117,35 +117,35 @@ const RESEARCHERS: Researcher[] = [
     id: 'sung-kyun-sin',
     name: 'Sung Kyun Sin', 
     grade: 'M.S.',
-    photo: '/members/seokwoo-chang.jpg',
-    email: 'wkdtjrdn1223@gmail.com',
-    researchInterests: ['Transformer AI Accelerator'],
+    photo: '/members/sung-kyun-sin.jpg',
+    email: 'skshin99.iq@gmail.com',
+    researchInterests: ['AI Accelerator', 'Hardware architecture', 'SoC Design'],
     accent: RESEARCHERS_ACCENT,
   },
   { 
     id: 'min-jae-kwak',
     name: 'Min Jae Kwak', 
     grade: 'M.S.',
-    photo: '/members/seokwoo-chang.jpg',
-    email: 'wkdtjrdn1223@gmail.com',
-    researchInterests: ['Transformer AI Accelerator'],
+    photo: '/members/min-jae-kwak.jpg',
+    email: 'ns2024@sju.ac.kr',
+    researchInterests: ['AI-based ECG classification'],
     accent: RESEARCHERS_ACCENT
   },
   { 
     id: 'lee-han',
     name: 'Lee Han', 
     grade: 'M.S.',
-    photo: '/members/seokwoo-chang.jpg',
-    email: 'wkdtjrdn1223@gmail.com',
-    researchInterests: ['Transformer AI Accelerator'],
+    photo: '/members/lee-han.jpg',
+    email: 'leehan@sju.ac.kr',
+    researchInterests: ['NPU Virtualization'],
     accent: RESEARCHERS_ACCENT,
   },
   { 
     id: 'sung-jin-hong',
     name: 'Sung Jin Hong', 
     grade: 'M.S.',
-    photo: '/members/seokwoo-chang.jpg',
-    email: 'wkdtjrdn1223@gmail.com',
+    photo: '/members/sung-jin-hong.jpg',
+    email: 'ns2024@sju.ac.kr',
     researchInterests: ['Transformer AI Accelerator'],
     accent: RESEARCHERS_ACCENT,
   },
@@ -153,9 +153,9 @@ const RESEARCHERS: Researcher[] = [
     id: 'in-seung-ryu',
     name: 'In Seung Ryu', 
     grade: 'M.S.',
-    photo: '/members/seokwoo-chang.jpg',
-    email: 'wkdtjrdn1223@gmail.com',
-    researchInterests: ['Transformer AI Accelerator'],
+    photo: '/members/in-seung-ryu.jpg',
+    email: 'inseung.ryu26@gmail.com',
+    researchInterests: ['NPU'],
     accent: RESEARCHERS_ACCENT,
   },
 ];
@@ -451,18 +451,12 @@ function AlumniDetailModal({
                   </div>
                 ))
               ) : (
-                  <p className="text-sm leading-relaxed">
+                 <p className="text-sm leading-relaxed">
                   <span className="font-bold text-white">{alumni.grade}</span>
-                  <span className="text-gray-300">, Sejong University.</span>
-                  {alumni.graduation ? (
-                    <span className="text-orange-400 font-mono text-xs ml-2 bg-orange-400/10 px-1.5 py-0.5 rounded border border-orange-400/20 whitespace-nowrap">
-                      Alumni (Graduated {alumni.graduation})
-                    </span>
-                  ) : (
-                    <span className="text-cyan-400 font-mono text-xs ml-2 bg-cyan-400/10 px-1.5 py-0.5 rounded border border-cyan-400/20 whitespace-nowrap">
-                      Present (Researcher)
-                    </span>
-                  )}
+                  <span className="text-gray-300">
+                    , Sejong University.
+                    {alumni.graduation && ` (Graduated ${alumni.graduation})`}
+                  </span>
                 </p>
               )}
 
