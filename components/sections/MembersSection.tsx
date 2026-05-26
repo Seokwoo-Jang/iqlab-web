@@ -173,6 +173,18 @@ const ALUMNI: Alumni[] = [
     grade: 'M.S.',
     graduation: '2026.02',
     company: 'Telechips',
+    photo: '/members/sung-hyun-cha.jpg',
+    email: 'chadoli5@naver.com',
+    education: [
+      {
+        degree: 'M.S.',
+        org: 'Sejong University',
+        field: 'Semiconductor Systems Engineering',
+        period: '2024.03 – 2026.02',
+      },
+      { degree: 'B.S.', org: 'Sejong University', period: '2024' },
+    ],
+    researchInterests: ['Neuromorphic Ai Accelerator'],
     accent: ALUMNI_ACCENT,
   },
   {
@@ -180,7 +192,20 @@ const ALUMNI: Alumni[] = [
     name: 'Seung Chan Kim',
     grade: 'M.S.',
     graduation: '2026.02',
-    company: 'Harman',
+    company: 'Wipro(formerly HARMAN)',
+    photo: '/members/seung-chan-kim.jpg',
+    email: 'glennkim98@gmail.com',
+    education: [
+      {
+        degree: 'M.S.',
+        org: 'Sejong University',
+        field: 'Semiconductor Systems Engineering',
+        period: '2024.03 – 2026.02',
+      },
+      { degree: 'B.S.', org: 'Sejong University', period: '2024' },
+    ],
+    researchInterests: ['Homomorphic Encryption Accelerator
+Post-Quantum Cryptography Accelerator'],
     accent: ALUMNI_ACCENT,
   },
   {
@@ -188,7 +213,19 @@ const ALUMNI: Alumni[] = [
     name: 'Jun Min Lee',
     grade: 'M.S.',
     graduation: '2026.02',
-    company: 'TBD',
+    company: 'SNchips',
+    photo: '/members/jun-min-lee.jpg',
+    email: 'junminy_lee@naver.com',
+    education: [
+      {
+        degree: 'M.S.',
+        org: 'Sejong University',
+        field: 'Semiconductor Systems Engineering',
+        period: '2024.03 – 2026.02',
+      },
+      { degree: 'B.S.', org: 'Induk University', period: '2024' },
+    ],
+    researchInterests: ['Sensor Digital Design'],
     accent: ALUMNI_ACCENT,
   },
   {
@@ -197,6 +234,18 @@ const ALUMNI: Alumni[] = [
     grade: 'M.S.',
     graduation: '2026.08',
     company: 'TBD',
+    photo: '/members/su-hwan-na.jpg',
+    email: 'ghks5246@naver.com',
+    education: [
+      {
+        degree: 'M.S.',
+        org: 'Sejong University',
+        field: 'Semiconductor Systems Engineering',
+        period: '2024.03 – 2026.08',
+      },
+      { degree: 'B.S.', org: 'Sejong University', period: '2024' },
+    ],
+    researchInterests: ['Neuromorphic AI processor Architecture'],
     accent: ALUMNI_ACCENT,
   },
 ];
