@@ -221,6 +221,18 @@ const RESEARCHERS: Researcher[] = [
       { degree: 'B.S.', org: 'Tech University of Korea', period: '2025' },
     ],
   },
+  { 
+    id : 'ji-soo-seo',
+    name: 'Ji Soo Seo',
+    grade: 'Undergraduate Researcher',
+    photo: '/members/ji-soo-seo.jpg',
+    email: 'jisoo000304@naver.com', 
+    researchInterests: ['Sensor Calibration'],
+    accent: RESEARCHERS_ACCENT,
+   education: [
+      { degree: 'B.S.', org: 'Sejong University', period: '2024 -' },
+    ],
+ },
 ];
 
 const ALUMNI_ACCENT = '#FF9500';
