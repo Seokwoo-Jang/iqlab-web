@@ -451,11 +451,18 @@ function AlumniDetailModal({
                   </div>
                 ))
               ) : (
-                <p className="text-sm leading-relaxed">
+                  <p className="text-sm leading-relaxed">
                   <span className="font-bold text-white">{alumni.grade}</span>
-                  <span className="text-gray-300">
-                    , Sejong University. (Graduated {alumni.graduation})
-                  </span>
+                  <span className="text-gray-300">, Sejong University.</span>
+                  {alumni.graduation ? (
+                    <span className="text-orange-400 font-mono text-xs ml-2 bg-orange-400/10 px-1.5 py-0.5 rounded border border-orange-400/20 whitespace-nowrap">
+                      Alumni (Graduated {alumni.graduation})
+                    </span>
+                  ) : (
+                    <span className="text-cyan-400 font-mono text-xs ml-2 bg-cyan-400/10 px-1.5 py-0.5 rounded border border-cyan-400/20 whitespace-nowrap">
+                      Present (Researcher)
+                    </span>
+                  )}
                 </p>
               )}
 
