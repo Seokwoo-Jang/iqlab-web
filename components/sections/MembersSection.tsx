@@ -103,7 +103,7 @@ const RESEARCHERS: Researcher[] = [
     email: 'sgjms2017@gmail.com', 
     researchInterests: ['Functional Safety for Automotive Semiconductor Systems'],
     accent: RESEARCHERS_ACCENT,
-     education: [
+   education: [
       {
         degree: 'M.S.',
         org: 'Sejong University',
@@ -119,8 +119,17 @@ const RESEARCHERS: Researcher[] = [
     grade: 'M.S.',
     photo: '/members/ji-hoon-yang.jpg',
     email: 'didwlgns010502@naver.com',
-    researchInterests: ['AI Accelerator <br /> Hardware architecture'],
+    researchInterests: ['AI Accelerator', 'Hardware architecture'],
     accent: RESEARCHERS_ACCENT,
+    education: [
+      {
+        degree: 'M.S.',
+        org: 'Sejong University',
+        field: 'Semiconductor Systems Engineering',
+        period: '2026.03 – ',
+      },
+      { degree: 'B.S.', org: 'Sejong University', period: '2026' },
+    ],
   },
   { 
     id: 'sung-kyun-sin',
@@ -130,6 +139,15 @@ const RESEARCHERS: Researcher[] = [
     email: 'skshin99.iq@gmail.com',
     researchInterests: ['AI Accelerator', 'Hardware architecture', 'SoC Design'],
     accent: RESEARCHERS_ACCENT,
+    education: [
+      {
+        degree: 'M.S.',
+        org: 'Sejong University',
+        field: 'Semiconductor Systems Engineering',
+        period: '2025.09 – ',
+      },
+      { degree: 'B.S.', org: 'Chungnam National University', period: '2023' },
+    ],
   },
   { 
     id: 'min-jae-kwak',
@@ -138,7 +156,16 @@ const RESEARCHERS: Researcher[] = [
     photo: '/members/min-jae-kwak.jpg',
     email: 'ns2024@sju.ac.kr',
     researchInterests: ['AI-based ECG classification'],
-    accent: RESEARCHERS_ACCENT
+    accent: RESEARCHERS_ACCENT,
+    education: [
+      {
+        degree: 'M.S.',
+        org: 'Sejong University',
+        field: 'Semiconductor Systems Engineering',
+        period: '2025.07 – ',
+      },
+      { degree: 'B.S.', org: 'Sejong University', period: '2025' },
+    ],
   },
   { 
     id: 'lee-han',
@@ -148,6 +175,15 @@ const RESEARCHERS: Researcher[] = [
     email: 'leehan@sju.ac.kr',
     researchInterests: ['NPU Virtualization'],
     accent: RESEARCHERS_ACCENT,
+    education: [
+      {
+        degree: 'M.S.',
+        org: 'Sejong University',
+        field: 'Semiconductor Systems Engineering',
+        period: '2026.03 – ',
+      },
+      { degree: 'B.S.', org: 'Hankuk University of Foreign Studies', period: '2026' },
+    ],
   },
   { 
     id: 'sung-jin-hong',
@@ -157,6 +193,15 @@ const RESEARCHERS: Researcher[] = [
     email: 'ns2024@sju.ac.kr',
     researchInterests: ['Transformer AI Accelerator'],
     accent: RESEARCHERS_ACCENT,
+    education: [
+      {
+        degree: 'M.S.',
+        org: 'Sejong University',
+        field: 'Semiconductor Systems Engineering',
+        period: '2026.03 – ',
+      },
+      { degree: 'B.S.', org: 'Sejong University', period: '2026' },
+    ],
   },
   { 
     id: 'in-seung-ryu',
@@ -166,6 +211,15 @@ const RESEARCHERS: Researcher[] = [
     email: 'inseung.ryu26@gmail.com',
     researchInterests: ['NPU'],
     accent: RESEARCHERS_ACCENT,
+    education: [
+      {
+        degree: 'M.S.',
+        org: 'Sejong University',
+        field: 'Semiconductor Systems Engineering',
+        period: '2026.03 – ',
+      },
+      { degree: 'B.S.', org: 'Tech University of Korea', period: '2025' },
+    ],
   },
 ];
 
@@ -218,6 +272,18 @@ const ALUMNI: Alumni[] = [
     grade: 'M.S.',
     graduation: '2025.08',
     company: 'Openedge Technology',
+    photo: '/members/jae-lim-lee.jpg',
+    email: 'yy78462@naver.com',
+    education: [
+      {
+        degree: 'M.S.',
+        org: 'Sejong University',
+        field: 'Semiconductor Systems Engineering',
+        period: '2023.09 – 2025.08',
+      },
+      { degree: 'B.S.', org: 'Sejong University', period: '2023' },
+    ],
+    researchInterests: ['Automotive Sensor Calibration'],
     accent: ALUMNI_ACCENT,
   },
   {
@@ -277,7 +343,7 @@ const ALUMNI: Alumni[] = [
       },
       { degree: 'B.S.', org: 'Sejong University', period: '2024' },
     ],
-    researchInterests: ['Homomorphic Encryption Accelerator'],
+    researchInterests: ['Homomorphic Encryption Accelerator', 'Post-Quantum Cryptography Accelerator'],
     accent: ALUMNI_ACCENT,
   },
   {
