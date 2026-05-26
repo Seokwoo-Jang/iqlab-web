@@ -40,7 +40,7 @@ const PROJECTS: Project[] = [
 • (2세부) 초연결 센서 융합 온디바이스 인공지능 반도체 첨단 패키지 기술
 • (3세부) 초연결 네트워크 및 정보통신 융합 AI 컴퓨팅 및 센싱 플랫폼
 • (4세부) 모빌리티 및 의료용 온디바이스 AI 반도체 적용 기술`,
-  image: '/projects/project01.jpg'
+  image: '/projects/project01.png'
   },
   {
     no: '02',
@@ -206,7 +206,9 @@ function ProjectDetailModal({
             {project.description && (
               <div>
                 <p className="text-xs text-gray-400 mb-1">Research Overview</p>
-                <p className="text-gray-300 bg-white/5 p-3 rounded-lg">{project.description}</p>
+                <p className="text-gray-300 bg-white/5 p-3 rounded-lg leading-relaxed whitespace-pre-wrap">
+                     {project.description}
+               </p>              
               </div>
             )}
           </div>
