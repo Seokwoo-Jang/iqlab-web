@@ -494,6 +494,7 @@ function AlumniDetailModal({
 
 export default function MembersSection() {
   const [selectedAlumni, setSelectedAlumni] = useState<Alumni | null>(null);
+  const [selectedResearcher, setSelectedResearcher] = useState<any>(null);
 
   return (
     <SectionShell id="members" eyebrow="Members">
