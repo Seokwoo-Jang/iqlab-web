@@ -125,6 +125,8 @@ const ALUMNI: Alumni[] = [
     grade: 'M.S.',
     graduation: '2025.08',
     company: 'Synopsys Korea',
+    photo: '/members/myeong-geon-yu.jpg',
+    email: 'famousgun99@naver.com',
     accent: ALUMNI_ACCENT,
   },
   {
