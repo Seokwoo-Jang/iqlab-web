@@ -729,7 +729,6 @@ export default function MembersSection() {
                   <p className="text-[11px] font-mono mt-1" style={{ color: p.accent }}>
                     {p.grade}
                   </p>
-                  )}
                 </Card>
               </button>
             ))}
