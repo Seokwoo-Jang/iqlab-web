@@ -793,7 +793,7 @@ export default function MembersSection() {
       </div>
     </div>
 
-    {selectedAlumni && (
+{selectedAlumni && (
       <AlumniDetailModal
         alumni={selectedAlumni}
         onClose={() => setSelectedAlumni(null)}
@@ -801,12 +801,11 @@ export default function MembersSection() {
     )}
 
     {selectedResearcher && (
-      <ResearcherDetailModal
-        researcher={selectedResearcher}
+      <AlumniDetailModal
+        alumni={selectedResearcher}
         onClose={() => setSelectedResearcher(null)}
       />
     )}
   </SectionShell>
-
   );
 }
