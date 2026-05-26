@@ -729,10 +729,6 @@ export default function MembersSection() {
                   <p className="text-[11px] font-mono mt-1" style={{ color: p.accent }}>
                     {p.grade}
                   </p>
-                  {p.email && (
-                    <p className="text-[11px] font-mono text-gray-400 mt-0.5 break-all">
-                      {p.email}
-                    </p>
                   )}
                 </Card>
               </button>
