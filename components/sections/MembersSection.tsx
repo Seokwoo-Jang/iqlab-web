@@ -501,6 +501,7 @@ function AlumniDetailModal({
   );
 }
 
+
 function ResearcherDetailModal({
   researcher,
   onClose,
@@ -541,7 +542,6 @@ function ResearcherDetailModal({
         }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close button */}
         <button
           aria-label="Close"
           onClick={onClose}
@@ -554,7 +554,6 @@ function ResearcherDetailModal({
         </button>
 
         <div className="grid md:grid-cols-[280px_1fr] gap-0">
-          {/* Left: photo + email */}
           <div className="p-6 md:p-8 flex flex-col items-center md:items-start">
             {researcher.photo ? (
               /* eslint-disable-next-line @next/next/no-img-element */
@@ -597,7 +596,6 @@ function ResearcherDetailModal({
             )}
           </div>
 
-          {/* Right: details */}
           <div className="p-6 md:p-8 md:pl-2 md:pr-12">
             <h2
               className="text-3xl md:text-4xl font-extrabold mb-5 leading-tight"
@@ -607,10 +605,26 @@ function ResearcherDetailModal({
             </h2>
 
             <div className="space-y-4">
-              <p className="text-sm leading-relaxed">
-                <span className="font-bold text-white">{researcher.grade}</span>
-                <span className="text-gray-300">, Sejong University.</span>
-              </p>
+              {researcher.education && researcher.education.length > 0 ? (
+                researcher.education.map((e: any, i: number) => (
+                  <div key={i}>
+                    <p className="text-sm leading-relaxed">
+                      <span className="font-bold text-white">{e.degree}</span>
+                      <span className="text-gray-300">
+                        {e.field ? `, ${e.field}, ${e.org}` : `, ${e.org}`}
+                      </span>
+                      {e.period && (
+                        <span className="text-gray-300">. ({e.period})</span>
+                      )}
+                    </p>
+                  </div>
+                ))
+              ) : (
+                <p className="text-sm leading-relaxed">
+                  <span className="font-bold text-white">{researcher.grade}</span>
+                  <span className="text-gray-300">, Sejong University.</span>
+                </p>
+              )}
 
               {researcher.researchInterests && researcher.researchInterests.length > 0 && (
                 <div>
