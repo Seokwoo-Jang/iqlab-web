@@ -599,7 +599,37 @@ function ResearcherDetailModal({
 
             <div className="space-y-4">
               <p className="text-sm leading-relaxed">
-                <span className="font-bold text-white">{
+                <span className="font-bold text-white">{researcher.grade}</span>
+                <span className="text-gray-300">, Sejong University.</span>
+              </p>
+
+              {researcher.researchInterests && researcher.researchInterests.length > 0 && (
+                <div>
+                  <p className="text-sm font-bold text-white mb-1">Research Interests</p>
+                  <p className="text-sm text-gray-300 leading-relaxed">
+                    {researcher.researchInterests.join(', ')}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <style jsx>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes scaleIn {
+          from { opacity: 0; transform: scale(0.96); }
+          to { opacity: 1; transform: scale(1); }
+        }
+      `}</style>
+    </div>
+  );
+}
+
 
 export default function MembersSection() {
   const [selectedAlumni, setSelectedAlumni] = useState<Alumni | null>(null);
