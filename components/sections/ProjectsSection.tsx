@@ -209,8 +209,8 @@ export default function ProjectsSection() {
               <Card
                 key={p.no}
                 accent={`${RND_ACCENT}30`}
-                className=""hover:border-white/25 cursor-pointer transition transform hover:-translate-y-0.5"
-                onClick={() => setSelectedProject(p)}"
+                className="hover:border-white/25 cursor-pointer transition transform hover:-translate-y-0.5"
+                onClick={() => setSelectedProject(p)}
               >
                 <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
                   <span
