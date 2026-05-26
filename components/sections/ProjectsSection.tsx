@@ -61,10 +61,10 @@ const PROJECTS: Project[] = [
   {
     no: '06',
     title:
-      ' ',
-    period: '2024.03 – 2026.12',
-    agency: 'KOCCA',
-    program: '문화기술연구개발사업',
+      '인공지능반도체 융합인력양성(세종대)',
+    period: '2024.05 – 2025.02',
+    agency: 'IITP',
+    program: '대학혁신지원사업',
   },
 ];
 
