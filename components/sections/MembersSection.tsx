@@ -127,6 +127,16 @@ const ALUMNI: Alumni[] = [
     company: 'Synopsys Korea',
     photo: '/members/myeong-geon-yu.jpg',
     email: 'famousgun99@naver.com',
+    education: [
+      {
+        degree: 'M.S.',
+        org: 'Sejong University',
+        field: 'Semiconductor Systems Engineering',
+        period: '2023.09 – 2025.08',
+      },
+      { degree: 'B.S.', org: 'Sejong University', period: '2023' },
+    ],
+    researchInterests: ['Ultrasonic Signal Processing Accelerator'],
     accent: ALUMNI_ACCENT,
   },
   {
@@ -143,6 +153,18 @@ const ALUMNI: Alumni[] = [
     grade: 'M.S.',
     graduation: '2026.02',
     company: 'Telechips',
+    photo: '/members/jong-hwan-jean.jpg',
+    email: 'kingdori1@naver.com',
+    education: [
+      {
+        degree: 'M.S.',
+        org: 'Sejong University',
+        field: 'Semiconductor Systems Engineering',
+        period: '2024.03 – 2026.02',
+      },
+      { degree: 'B.S.', org: 'Sejong University', period: '2024' },
+    ],
+    researchInterests: ['NPU Virtualization'],
     accent: ALUMNI_ACCENT,
   },
   {
