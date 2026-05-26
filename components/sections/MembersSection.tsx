@@ -103,6 +103,15 @@ const RESEARCHERS: Researcher[] = [
     email: 'sgjms2017@gmail.com', 
     researchInterests: ['Functional Safety for Automotive Semiconductor Systems'],
     accent: RESEARCHERS_ACCENT,
+     education: [
+      {
+        degree: 'M.S.',
+        org: 'Sejong University',
+        field: 'Semiconductor Systems Engineering',
+        period: '2026.03 – ',
+      },
+      { degree: 'B.S.', org: 'Sejong University', period: '2025' },
+    ],
  },
  { 
     id: 'ji-hoon-yang',
