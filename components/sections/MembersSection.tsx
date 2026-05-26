@@ -682,25 +682,60 @@ export default function MembersSection() {
           </div>
         </div>
 
-        {/* ============ 02 RESEARCHERS ============ */}
-        <div>
+        {/* ============ 02 RESEARCHERS ============ */} 
+       <div>
           <ChapterHeader title="Researchers" accent="#00D4FF" />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {RESEARCHERS.map((p) => (
-              <Card key={p.name} className="hover:border-white/20 text-center">
-                <div className="w-full aspect-[4/5] rounded-md mb-3 bg-gradient-to-br from-cyan-900/30 to-black border border-white/5 flex items-center justify-center">
-                  <span className="text-2xl text-cyan-500/40 font-mono font-bold">
-                    {p.name
-                      .split(' ')
-                      .map((s) => s[0])
-                      .join('')}
-                  </span>
-                </div>
-                <h4 className="text-base font-bold text-white">{p.name}</h4>
-                <p className="text-[11px] text-cyan-400 font-mono mt-0.5">
-                  {p.grade}
-                </p>
-              </Card>
+              <button
+                key={p.id}
+                onClick={() => setSelectedAlumni(p as any)}
+                className="text-center group"
+              >
+                <Card
+                  accent={`${p.accent}30`}
+                  className="hover:border-white/30 transition cursor-pointer h-full text-center"
+                >
+                  <div
+                    className="w-full aspect-[4/5] rounded-md mb-3 overflow-hidden border border-white/5 flex items-center justify-center"
+                    style={{
+                      boxShadow: `0 4px 18px ${p.accent}25`,
+                      background: p.photo
+                        ? '#0a0a12'
+                        : `linear-gradient(135deg, rgba(0,122,255,0.18), rgba(20,20,30,0.6))`,
+                    }}
+                  >
+                    {p.photo ? (
+                      <img
+                        src={asset(p.photo)}
+                        alt={p.name}
+                        className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
+                      />
+                    ) : (
+                      <span
+                        className="text-3xl font-mono font-bold"
+                        style={{ color: `${p.accent}88` }}
+                      >
+                        {p.name
+                          .split(' ')
+                          .map((s) => s[0])
+                          .join('')}
+                      </span>
+                    )}
+                  </div>
+                  <h4 className="text-base font-bold text-white group-hover:text-cyan-300 transition leading-tight">
+                    {p.name}
+                  </h4>
+                  <p className="text-[11px] font-mono mt-1" style={{ color: p.accent }}>
+                    {p.grade}
+                  </p>
+                  {p.email && (
+                    <p className="text-[11px] font-mono text-gray-400 mt-0.5 break-all">
+                      {p.email}
+                    </p>
+                  )}
+                </Card>
+              </button>
             ))}
           </div>
         </div>
