@@ -92,7 +92,7 @@ const RESEARCHERS: Researcher[] = [
   { 
     id : 'ui-seok-jeong',
     name: 'Ui Seok Jeong',
-    grade: 'B.S.',
+    grade: 'M.S.',
     photo: '/members/seokwoo-chang.jpg',
     email: 'wkdtjrdn1223@gmail.com', 
     researchInterests: ['Transformer AI Accelerator'],
