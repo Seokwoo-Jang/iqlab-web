@@ -7,6 +7,7 @@ type Project = {
   period: string;
   agency: string;
   program: string;
+  description?: string;
 };
 
 type Chip = {
@@ -29,6 +30,7 @@ const PROJECTS: Project[] = [
     period: '2024.07 – 2031.12',
     agency: 'IITP',
     program: '정보통신방송혁신인재양성사업',
+    description : '블라블라',
   },
   {
     no: '02',
@@ -36,6 +38,7 @@ const PROJECTS: Project[] = [
     period: '2024.07 – 2028.12',
     agency: 'KETI',
     program: '소재부품기술개발사업',
+    description : '블라블라',
   },
    {
     no: '03',
@@ -43,6 +46,7 @@ const PROJECTS: Project[] = [
     period: '2023.07 – 2027.12',
     agency: 'KEIT',
     program: '소재부품기술개발사업',
+    description : '블라블라',
   },
   {
     no: '04',
@@ -50,6 +54,7 @@ const PROJECTS: Project[] = [
     period: '2023.04 – 2027.12',
     agency: 'IITP',
     program: '인공지능반도체SW통합플랫폼기술개발사업',
+    description : '블라블라',
   },
   {
     no: '05',
@@ -57,6 +62,7 @@ const PROJECTS: Project[] = [
     period: '2023.04 – 2027.12',
     agency: 'COSAR, KETI',
     program: '민관공동투자반도체고급인력양성사업',
+    description : '블라블라',
   },
   {
     no: '06',
@@ -65,6 +71,7 @@ const PROJECTS: Project[] = [
     period: '2024.05 – 2025.02',
     agency: 'IITP',
     program: '대학혁신지원사업',
+    description : '블라블라',
   },
 ];
 
@@ -122,7 +129,75 @@ function ChapterHeader({
   );
 }
 
+function ProjectDetailModal({
+  project,
+  onClose,
+}: {
+  project: Project;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+      style={{
+        background: 'rgba(2, 6, 14, 0.85)',
+        backdropFilter: 'blur(8px)',
+      }}
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-2xl rounded-xl border border-white/10 p-6 md:p-8"
+        style={{
+          background: 'linear-gradient(135deg, rgba(25,15,15,0.96) 0%, rgba(10,10,15,0.96) 50%, rgba(20,20,30,0.96) 100%)',
+          boxShadow: `0 30px 80px rgba(0,0,0,0.6), 0 0 60px ${RND_ACCENT}20`,
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button onClick={onClose} className="absolute top-4 right-4 text-white/70 hover:text-white">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <line x1="6" y1="6" x2="18" y2="18" /><line x1="18" y1="6" x2="6" y2="18" />
+          </svg>
+        </button>
+        <div className="text-sm space-y-4">
+          <span style={{ color: RND_ACCENT }} className="font-bold font-mono">Project {project.no}</span>
+          <h2 className="text-xl md:text-2xl font-extrabold text-white">{project.title}</h2>
+          
+          <div className="border-t border-white/5 pt-4 space-y-3">
+            <div>
+              <p className="text-xs text-gray-400">Funding Agency</p>
+              <p className="text-white font-medium">{project.agency}</p>
+            </div>
+            <div>
+              <p className="text-xs text-gray-400">Program Name</p>
+              <p className="text-gray-200">{project.program}</p>
+            </div>
+            {project.description && (
+              <div>
+                <p className="text-xs text-gray-400mb-1">Research Overview</p>
+                <p className="text-gray-300 bg-white/5 p-3 rounded-lg">{project.description}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ProjectsSection() {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   return (
     <SectionShell id="projects" eyebrow="Projects">
       <div className="space-y-20">
@@ -134,7 +209,8 @@ export default function ProjectsSection() {
               <Card
                 key={p.no}
                 accent={`${RND_ACCENT}30`}
-                className="hover:border-white/25"
+                className=""hover:border-white/25 cursor-pointer transition transform hover:-translate-y-0.5"
+                onClick={() => setSelectedProject(p)}"
               >
                 <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
                   <span
@@ -240,6 +316,12 @@ export default function ProjectsSection() {
           </div>
         </div>
       </div>
+    {selectedProject && (
+        <ProjectDetailModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
+      )}
     </SectionShell>
   );
 }
