@@ -229,12 +229,25 @@ const JOURNALS = SORTED.filter((p) => p.type === 'journal');
 const CONFERENCES = SORTED.filter((p) => p.type === 'conference');
 
 function PubItem({ p }: { p: Pub }) {
+  const primaryLink = p.links && p.links.length > 0 ? p.links[0].url : null;
+
   return (
     <li className="py-3 group">
       <p className="text-[12px] font-mono text-gray-500 mb-0.5">{p.authors}</p>
-      <p className="text-sm md:text-base text-white leading-snug mb-0.5 group-hover:text-red-300 transition">
-        &ldquo;{p.title}&rdquo;
-      </p>
+      {primaryLink ? (
+        <a
+          href={primaryLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block text-sm md:text-base text-white leading-snug mb-0.5 group-hover:text-red-300 transition cursor-pointer hover:underline"
+        >
+          &ldquo;{p.title}&rdquo;
+        </a>
+      ) : (
+        <p className="text-sm md:text-base text-white leading-snug mb-0.5">
+          &ldquo;{p.title}&rdquo;
+        </p>
+      )}
       <p className="text-xs text-gray-400 italic">{p.venue}</p>
     </li>
   );
